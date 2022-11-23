@@ -1,2 +1,5 @@
 # WinterWhipBird.github.io
-Personal web page
+This repo backs the website https://winterwhipbird.github.io/
+
+
+
