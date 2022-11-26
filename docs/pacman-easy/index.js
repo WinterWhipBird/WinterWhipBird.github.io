@@ -9,9 +9,9 @@
 
 //主程序,业务逻辑
 (function(){
-	var _COIGIG = [		//关卡
-		{				//第1关
-			'map':[		//地图数据
+	var _COIGIG = [		//Level
+		{				//Level 1
+			'map':[		//map data
 				[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 				[1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
 				[1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1],
@@ -45,7 +45,7 @@
 				[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 			],
 			'wall_color':'#09f',
-			'goods':{		//能量豆
+			'goods':{		//Energy beans
 				'1,3':1,
 				'26,3':1,
 				'1,23':1,
@@ -515,14 +515,14 @@
 			}
 		}
 	];
-	_COLOR = ['#F00','#F93','#0CF','#F9C'],	//NPC颜色
+	_COLOR = ['#F00','#F93','#0CF','#F9C'],	//Non-player Character colours
 	_COS = [1,0,-1,0],
 	_SIN = [0,1,0,-1],
-	_LIFE = 5,				//玩家生命值
-	_SCORE = 0;				//玩家得分
+	_LIFE = 5,				//Player health
+	_SCORE = 0;				//Player score
 
 	var game = new Game('canvas');
-	//启动页
+	//start page
 	(function(){
 		var stage = game.createStage();
 		//logo
@@ -547,7 +547,7 @@
 				context.fill();
 			}
 		});
-		//游戏名
+		//game name
 		stage.createItem({
 			x:game.width/2,
 			y:game.height*.6,
@@ -556,50 +556,32 @@
 				context.textAlign = 'center';
 				context.textBaseline = 'middle';
 				context.fillStyle = '#FFF';
-				context.fillText('Pac-Man',this.x,this.y);
+				context.fillText('Pac-Man-Baby',this.x,this.y);
 			}
 		});
-		//版权信息
-		stage.createItem({
-			x:game.width-10,
-			y:game.height-5,
-			draw:function(context){
-				var text = '© passer-by.com';
-				context.font = '14px/20px Helvetica';
-				context.textAlign = 'left';
-				context.textBaseline = 'top';
-				context.fillStyle = '#AAA';
-				this.width = context.measureText(text).width;
-				this.x = game.width-this.width-10;
-				this.y = game.height-20-5;
-				context.fillText(text,this.x,this.y);
-			}
-		}).bind('click',function(){
-			window.open('https://passer-by.com');
-		});
-		//事件绑定
+		//Event binding
 		stage.bind('keydown',function(e){
 			switch(e.keyCode){
-				case 13:
-				case 32:
+				case 13: // Carriage return character / enter key
+				case 32: // Space character / space bar
 				game.nextStage();
 				break;
 			}
 		});
 	})();
-	//游戏主程序
+	//Game main program
 	(function(){
 		_COIGIG.forEach(function(config,index){
 			var stage,map,beans,items,player;
 			stage = game.createStage({
 				update:function(){
 					var stage = this;
-					if(stage.status==1){								//场景正常运行
+					if(stage.status==1){								//The scene works normally
 						items.forEach(function(item){
 							if(map&&!map.get(item.coord.x,item.coord.y)&&!map.get(player.coord.x,player.coord.y)){
 								var dx = item.x-player.x;
 								var dy = item.y-player.y;
-								if(dx*dx+dy*dy<750&&item.status!=4){		//物体检测
+								if(dx*dx+dy*dy<750&&item.status!=4){		//object detection
 									if(item.status==3){
 										item.status = 4;
 										_SCORE += 10;
@@ -610,10 +592,10 @@
 								}
 							}
 						});
-						if(JSON.stringify(beans.data).indexOf(0)<0){	//当没有物品的时候，进入下一关
+						if(JSON.stringify(beans.data).indexOf(0)<0){	//When there are no items, enter the next level
 							game.nextStage();
 						}
-					}else if(stage.status==3){		//场景临时状态
+					}else if(stage.status==3){		//Temporary state of the scene
 						if(!stage.timeout){
 							_LIFE--;
 							if(_LIFE){
@@ -627,7 +609,7 @@
 					}
 				}
 			});
-			//绘制地图
+			//draw a map
 			map = stage.createMap({
 				x:60,
 				y:10,
@@ -698,7 +680,7 @@
 					}
 				}
 			});
-			//物品地图
+			//item map
 			beans = stage.createMap({
 				x:60,
 				y:10,
@@ -723,7 +705,7 @@
 					}
 				}
 			});
-			//关卡得分
+			//level score
 			stage.createItem({
 				x:690,
 				y:80,
@@ -750,7 +732,7 @@
 					context.fillText(index+1,this.x+12,this.y+72);
 				}
 			});
-			//状态文字
+			//status text
 			stage.createItem({
 				x:690,
 				y:285,
@@ -765,7 +747,7 @@
 					}
 				}
 			});
-			//生命值
+			//life level
 			stage.createItem({
 				x:705,
 				y:510,
@@ -808,13 +790,13 @@
 						if(this.status==3&&!this.timeout){
 							this.status = 1;
 						}
-						if(!this.coord.offset){			//到达坐标中心时计算
+						if(!this.coord.offset){			//Calculated when reaching the coordinate center
 							if(this.status==1){
-								if(!this.timeout){		//定时器
+								if(!this.timeout){		//timer
 									new_map = JSON.parse(JSON.stringify(map.data).replace(/2/g,0));
 									var id = this._id;
 									items.forEach(function(item){
-										if(item._id!=id&&item.status==1){	//NPC将其它所有还处于正常状态的NPC当成一堵墙
+										if(item._id!=id&&item.status==1){	//Treat all other NPCs that are still in normal state as a wall
 											new_map[item.coord.y][item.coord.x]=1;
 										}
 									});
@@ -927,8 +909,9 @@
 					}
 				});
 			}
+
 			items = stage.getItemsByType(2);
-			//主角
+			//main character
 			player = stage.createItem({
 				width:30,
 				height:30,
@@ -948,6 +931,13 @@
 						}
 						this.control = {};
 						var value = map.get(coord.x+_COS[this.orientation],coord.y+_SIN[this.orientation]);
+						console.log("Coord x: " + coord.x); 
+						console.log("Coord y: " + coord.y);
+						console.log("_COS[this.orientation]: " + _COS[this.orientation]); 
+						console.log("_SIN[this.orientation]: " + _SIN[this.orientation]); 
+						if(value==1){
+						  value = map.get(coord.x+_COS[this.orientation],coord.y+_SIN[this.orientation]);
+						}
 						if(value==0){
 							this.x += this.speed*_COS[this.orientation];
 							this.y += this.speed*_SIN[this.orientation];
@@ -956,12 +946,12 @@
 							this.y -= map.size*(map.y_length-1)*_SIN[this.orientation];
 						}
 					}else{
-						if(!beans.get(this.coord.x,this.coord.y)){	//吃豆
+						if(!beans.get(this.coord.x,this.coord.y)){	//pacman
 							_SCORE++;
 							beans.set(this.coord.x,this.coord.y,1);
-							if(config['goods'][this.coord.x+','+this.coord.y]){	//吃到能量豆
+							if(config['goods'][this.coord.x+','+this.coord.y]){	//eat energy beans
 								items.forEach(function(item){
-									if(item.status==1||item.status==3){	//如果NPC为正常状态，则置为临时状态
+									if(item.status==1||item.status==3){	//If the NPC is in a normal state, set it to a temporary state
 										item.timeout = 450;
 										item.status = 3;
 									}
@@ -991,30 +981,30 @@
 					context.fill();
 				}
 			});
-			//事件绑定
+			//event binding
 			stage.bind('keydown',function(e){
 				switch(e.keyCode){
-					case 13: //回车
-					case 32: //空格
+					case 13: // Enter key
+					case 32: // Space bar
 					this.status = this.status==2?1:2;
 					break;
-					case 39: //右
+					case 39: //right
 					player.control = {orientation:0};
 					break;
-					case 40: //下
+					case 40: //down
 					player.control = {orientation:1};
 					break;
-					case 37: //左
+					case 37: //left
 					player.control = {orientation:2};
 					break;
-					case 38: //上
+					case 38: //up
 					player.control = {orientation:3};
 					break;
 				}
 			});
 		});
 	})();
-	//结束画面
+	//end screen
 	(function(){
 		var stage = game.createStage();
 		//游戏结束
