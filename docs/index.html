@@ -4,6 +4,60 @@
 <body>
 Welcome!
 
+
+<h1>NFT Beanie for Decentraland with Royalty Avoidance Protection</h1>
+I am working towards creating a beanie that can be worn by avatars in Decentraland.
+Each avatar will have their own beanie. The beanie will have a image on it, which will
+be different for each beanier.  People can buy and sell the beanies, with a royalty 
+paid on each sale to me, the original creator of the beanie.
+
+The elements of this are shown in the diagram below.
+
+
+
+<p><a href="https://decentraland.org/">Decentraland</a> is a metaverse that people can use via a web browser.
+<a href="https://docs.decentraland.org/creator/">Wearables</a> are items of clothing that avatars can wear.
+Avatars come with default wearables. People can buy or acquire other wearables for their avatar. 
+Wearables that people own are linked to Non Fungible Tokens (NFTs), and are called 
+<a href="https://docs.decentraland.org/creator/wearables/linked-wearables/">Linked Wearables</a>. </p>  
+
+
+<p>Wearables in Decentraland are 3D models. TODO need to read more about this: https://www.youtube.com/watch?v=4Qd3BI6IYN4</p>
+
+<p>
+NFTs are <a href="https://docs.openzeppelin.com/contracts/2.x/api/token/erc721">ERC 721</a> tokens.
+These tokens are each unique. The ownership of an ERC 721 token is based on which Ethereum address 
+is the owner of the token in the ERC 721 contract. </p>
+
+<p>
+Decentaland allows the ERC 721 tokens to be 
+hosted on a range of blockchains; for example Ethereum, Polygon, Binance. Transactions on Ethereum
+tend to cost more, as it is the most popular blockchain in terms of funds. Because of this, this
+is where the largest markets for NFTs are: <a href="https://opensea.io/">Open Sea</a>. Deploying
+contracts and giving tokens to people would be cheaper on Polygon. TODO: Decide on Polygon or Ethereum</p>
+
+<p>
+The NFTs need to be generatable. This will mean that the bits of the NFT id will be used to generate 
+the graphic. For instance, what lines and shapes to appear. The canvas from the PacMan game below
+coud be used for this. That is, the web link would include the ID. The html would feed the ID into the 
+Java Script, which would then generate the graphic. TODO work out how this really works!</p>
+
+<p>Other things:</p>
+<ul>
+<li>The ERC 721 needs to include royalty API extensions. TODO: What are these extensions? How do they work?</li>
+<li>Ensure the generative NFT is not deemed trivial and not copyrigtable. TODO watch the Waht the NFT 
+    talk on the Ethereum Engineering Group Meetup</li>
+    <li>Some NFT market places are not honoring rolayties. However, some ERC 721 contracts have bean
+        written to block those market places. TODO what out what needs to be done.
+    </li>
+</ul> 
+
+
+
+
+
+
+
 <h1>PAC-MAN</h1>
 <p>The Pacman game is based the implementation by <a href="https://github.com/mumuy/pacman">mumuy</a>.</p>
 
