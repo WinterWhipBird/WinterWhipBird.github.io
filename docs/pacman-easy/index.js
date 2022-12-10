@@ -507,7 +507,7 @@
 				[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 			],
 			'wall_color':'#9966CC',
-			'goods':{		//能量豆
+			'goods':{		//energy beans
 				'1,4':1,
 				'26,4':1,
 				'1,27':1,
@@ -515,7 +515,7 @@
 			}
 		}
 	];
-	_COLOR = ['#F00','#F93','#0CF','#F9C'],	//Non-player Character colours
+	_COLOR = ['#F00','#A020F0','#0CF','#F9C'],	//Non-player Character colours
 	_COS = [1,0,-1,0],
 	_SIN = [0,1,0,-1],
 	_LIFE = 5,				//Player health
@@ -913,6 +913,7 @@
 			items = stage.getItemsByType(2);
 			//main character
 			player = stage.createItem({
+				timelastpressed: 0,
 				width:30,
 				height:30,
 				type:1,
