@@ -914,6 +914,7 @@
 			//main character
 			player = stage.createItem({
 				timelastpressed: 0,
+				lastdirection: 0,
 				width:30,
 				height:30,
 				type:1,
@@ -984,6 +985,8 @@
 			});
 			//event binding
 			stage.bind('keydown',function(e){
+				player.lastdirection=player.control.orientation;
+				player.timelastpressed= Date.now();
 				switch(e.keyCode){
 					case 13: // Enter key
 					case 32: // Space bar
