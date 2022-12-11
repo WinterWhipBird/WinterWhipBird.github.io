@@ -927,16 +927,75 @@
 					var coord = this.coord;
 					if(!coord.offset){
 						if(typeof this.control.orientation != 'undefined'){
+
+							player.lastdirection=player.control.orientation;
+				            player.timelastpressed= Date.now();
+
 							if(!map.get(coord.x+_COS[this.control.orientation],coord.y+_SIN[this.control.orientation])){
 								this.orientation = this.control.orientation;
 							}
-						}
+							else{
+								switch(this.orientation){
+									case 0: //right
+										switch(this.control.orientation){
+											case 1: //down
+											case 3: //up
+											if(!map.get(coord.x-1+_COS[this.control.orientation],coord.y+_SIN[this.control.orientation])){
+												this.orientation = this.control.orientation;
+												coord.x -= 1;
+												this.x -= 20;
+												console.log ("right");
+											}	
+											break;
+									}
+									break;
+									case 1: //down
+									switch(this.control.orientation){
+										case 2: //left
+										case 0: //right
+										if(!map.get(coord.x+_COS[this.control.orientation],coord.y-1+_SIN[this.control.orientation])){
+											this.orientation = this.control.orientation;
+											coord.y -= 1;
+											this.y -= 20;
+											console.log ("down");
+										}
+										break;
+								}
+									break;
+									case 2: //left
+									switch(this.control.orientation){
+										case 1: //down
+										case 3: //up
+										if(!map.get(coord.x-1+_COS[this.control.orientation],coord.y+_SIN[this.control.orientation])){
+											this.orientation = this.control.orientation;
+											coord.x += 1;
+											this.x += 20;
+											console.log ("left");
+										}
+										break;
+								}
+									break;
+									case 3: //up
+									switch(this.control.orientation){
+										case 2: //left
+										case 0: //right
+										if(!map.get(coord.x+_COS[this.control.orientation],coord.y-1+_SIN[this.control.orientation])){
+											this.orientation = this.control.orientation;
+											coord.y += 1;
+											this.y += 20;
+											console.log ("up");
+										}
+										break;
+								}
+								break;
+							}
+							}}
 						this.control = {};
 						var value = map.get(coord.x+_COS[this.orientation],coord.y+_SIN[this.orientation]);
-						console.log("Coord x: " + coord.x); 
-						console.log("Coord y: " + coord.y);
-						console.log("_COS[this.orientation]: " + _COS[this.orientation]); 
-						console.log("_SIN[this.orientation]: " + _SIN[this.orientation]); 
+						//console.log("Coord x: " + coord.x); 
+						//console.log("Coord y: " + coord.y);
+						//console.log("_COS[this.orientation]: " + _COS[this.orientation]); 
+						//console.log("_SIN[this.orientation]: " + _SIN[this.orientation]); 
 						if(value==1){
 						  value = map.get(coord.x+_COS[this.orientation],coord.y+_SIN[this.orientation]);
 						}
@@ -985,8 +1044,6 @@
 			});
 			//event binding
 			stage.bind('keydown',function(e){
-				player.lastdirection=player.control.orientation;
-				player.timelastpressed= Date.now();
 				switch(e.keyCode){
 					case 13: // Enter key
 					case 32: // Space bar
