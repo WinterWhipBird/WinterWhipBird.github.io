@@ -966,7 +966,7 @@
 									switch(this.control.orientation){
 										case 1: //down
 										case 3: //up
-										if(!map.get(coord.x-1+_COS[this.control.orientation],coord.y+_SIN[this.control.orientation])){
+										if(!map.get(coord.x+1+_COS[this.control.orientation],coord.y+_SIN[this.control.orientation])){
 											this.orientation = this.control.orientation;
 											coord.x += 1;
 											this.x += 20;
@@ -979,7 +979,7 @@
 									switch(this.control.orientation){
 										case 2: //left
 										case 0: //right
-										if(!map.get(coord.x+_COS[this.control.orientation],coord.y-1+_SIN[this.control.orientation])){
+										if(!map.get(coord.x+_COS[this.control.orientation],coord.y+1+_SIN[this.control.orientation])){
 											this.orientation = this.control.orientation;
 											coord.y += 1;
 											this.y += 20;
